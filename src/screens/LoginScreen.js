@@ -11,6 +11,7 @@ import {
 import InputForm from '../components/InputForm';
 import SocialButton from '../components/SocialButton';
 import FormButton from '../components/FormButton';
+import SignupScreen from './SignupScreen';
 //const {login, googleLogin, fbLogin} = useContext(AuthContext);
 
 const LoginScreen = ({navigation}) => {
@@ -19,10 +20,10 @@ const LoginScreen = ({navigation}) => {
   return(
     <View style = {styles.container}>
     <Image
-    source={require('../../assets/Images/archive_white_96x96.png')}
+    source={require('../../assets/Images/reactIcon.png')}
     style = {styles.logo}
     />
-    <Text>Firebase Social</Text>
+    <Text style = {styles.text}>SocialAppLS</Text>
     <InputForm
     labelValue = {email}
     onChangeText = {(userEmail) => setEmail(userEmail)}
@@ -62,15 +63,16 @@ const LoginScreen = ({navigation}) => {
             backgroundColor="#f5e7ea"
             //onPress={() => googleLogin()}
           />
+          </View>
           <TouchableOpacity
           style = {styles.forgotButton}
-          onPress = {()=>{}}
+          onPress = {()=>(navigation.navigate('Signup'))}
           >
           <Text style = {styles.navButtonText}>
           Don't have an acount? Create here
           </Text>
           </TouchableOpacity>
-        </View>
+        
 
     </View>
   )
@@ -95,10 +97,20 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   text: {
-    //fontFamily: 'Kufam-SemiBoldItalic',
-    fontSize: 28,
-    marginBottom: 10,
-    color: '#051d5f',
+    ...Platform.select({
+      android:{
+        fontFamily: 'Kufam-SemiBoldItalic',
+        fontSize: 28,
+        marginBottom: 10,
+        color: '#051d5f',
+      },
+      ios:{
+        fontFamily: 'Kufam-SemiBoldItalic',
+        fontSize: 28,
+        marginBottom: 10,
+        color: '#051d5f',
+      }
+    })
   },
   navButton: {
     marginTop: 15,
@@ -110,7 +122,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '500',
     color: '#2e64e5',
-    //fontFamily: 'Lato-Regular',
+    fontFamily: 'Lato-Regular',
   },
 })
 

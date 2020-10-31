@@ -16,10 +16,11 @@ import {
   StatusBar,
 } from 'react-native';
 import Login from './src/screens/LoginScreen'
+import AppNavigator from './src/navigation'
 
 const App=()=>{
 return(
-  <Login/>
+  <AppNavigator/>
 )
 }
 
