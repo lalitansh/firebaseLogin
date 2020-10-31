@@ -20,7 +20,7 @@ return(
   style = {[styles.buttonContainer,{backgroundColor:bgColor}]}
   {...rest}>
   <View style = {styles.iconWrapper}>
-    <FontAwesome style = {styles.icon} name = {btnType} size = {22} color = {color}/>
+    <FontAwesome style = {styles.icon} name = "facebook" size = {22} color = {color}/>
   </View>
   <View style = {styles.btnTxtWrapper}>
     <Text style = {[styles.buttonText, {color : color}]}>{buttonTitle}</Text>

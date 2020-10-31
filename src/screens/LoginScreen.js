@@ -43,6 +43,9 @@ const LoginScreen = ({navigation}) => {
     buttonTitle = "Sign In"
     //onPress={() => login(email, password)}
     />
+    <TouchableOpacity style={styles.forgotButton} onPress={() => {}}>
+        <Text style={styles.navButtonText}>Forgot Password?</Text>
+    </TouchableOpacity>
     <View>
           <SocialButton
             buttonTitle="Sign In with Facebook"
@@ -59,6 +62,14 @@ const LoginScreen = ({navigation}) => {
             backgroundColor="#f5e7ea"
             //onPress={() => googleLogin()}
           />
+          <TouchableOpacity
+          style = {styles.forgotButton}
+          onPress = {()=>{}}
+          >
+          <Text style = {styles.navButtonText}>
+          Don't have an acount? Create here
+          </Text>
+          </TouchableOpacity>
         </View>
 
     </View>
