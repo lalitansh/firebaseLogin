@@ -20,7 +20,7 @@ return(
   style = {[styles.buttonContainer,{backgroundColor:bgColor}]}
   {...rest}>
   <View style = {styles.iconWrapper}>
-    <FontAwesome style = {styles.icon} name = "facebook" size = {22} color = {color}/>
+    <FontAwesome style = {styles.icon} name = {btnType} size = {22} color = {color}/>
   </View>
   <View style = {styles.btnTxtWrapper}>
     <Text style = {[styles.buttonText, {color : color}]}>{buttonTitle}</Text>
@@ -35,9 +35,10 @@ export default SocialButton;
 const styles = StyleSheet.create({
   buttonContainer: {
     marginTop: 10,
-    width: '100%',
-    height: HEIGHT / 15,
+    width: '48%',
+    height: HEIGHT / 20,
     padding: 10,
+    margin : 5,
     flexDirection: 'row',
     borderRadius: 3,
   },

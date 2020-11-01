@@ -17,6 +17,7 @@ import {
 } from 'react-native';
 import Login from './src/screens/LoginScreen'
 import AppNavigator from './src/navigation'
+import Onboarding from './src/screens/Onboarding'
 
 const App=()=>{
 return(

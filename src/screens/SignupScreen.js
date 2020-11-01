@@ -3,6 +3,8 @@ import {View, Text, TouchableOpacity, Platform, StyleSheet} from 'react-native';
 import InputForm from '../components/InputForm';
 import FormButton from '../components/FormButton';
 import SocialButton from '../components/SocialButton';
+import FormalButton from '../components/FormalButton';
+import Colors from '../utils/Colors'
 //import {AuthContext} from '../navigation/AuthProvider';
 
 const SignupScreen = ({navigation}) => {
@@ -44,7 +46,7 @@ const SignupScreen = ({navigation}) => {
 
       <FormButton
         buttonTitle="Sign Up"
-        //onPress={() => register(email, password)}
+        onPress={() =>{}}
       />
 
       <View style={styles.textPrivate}>
@@ -63,30 +65,30 @@ const SignupScreen = ({navigation}) => {
       </View>
 
      
-        <View>
+      <View style = {styles.socialButton}>
           <SocialButton
-            buttonTitle="Sign Up with Facebook"
+            buttonTitle="Facebook"
             btnType="facebook"
             color="#4867aa"
             backgroundColor="#e6eaf4"
-            onPress={() => {}}
+            //onPress={() => fbLogin()}
           />
-    
+
           <SocialButton
-            buttonTitle="Sign Up with Google"
+            buttonTitle="Google"
             btnType="google"
             color="#de4d41"
             backgroundColor="#f5e7ea"
-            onPress={() => {}}
+            //onPress={() => googleLogin()}
           />
-        </View>
+      </View>
     
 
-      <TouchableOpacity
-        style={styles.navButton}
-        onPress={() => navigation.navigate('Login')}>
-        <Text style={styles.navButtonText}>Have an account? Sign In</Text>
-      </TouchableOpacity>
+    <FormalButton 
+    message = "Already Have an account?"
+    buttonTitle = "Sign in."
+    onPress = {()=>navigation.navigate('Login')}
+    />
     </View>
   );
 };
@@ -95,7 +97,8 @@ export default SignupScreen;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#f9fafd',
+    //backgroundColor: '#f9fafd',
+    backgroundColor : Colors.gainsboro,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -127,5 +130,8 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     fontFamily: 'Lato-Regular',
     color: 'grey',
+  },
+  socialButton: {
+    flexDirection : 'row',
   },
 });

@@ -7,11 +7,16 @@ import {
   Image,
   Platform,
   StyleSheet,
+  Dimensions
 } from 'react-native'
 import InputForm from '../components/InputForm';
 import SocialButton from '../components/SocialButton';
 import FormButton from '../components/FormButton';
+import FormalButton from '../components/FormalButton';
 import SignupScreen from './SignupScreen';
+import Colors from '../utils/Colors'
+const HEIGHT = Dimensions.get('window').height;
+const WIDTH = Dimensions.get('window').width;
 //const {login, googleLogin, fbLogin} = useContext(AuthContext);
 
 const LoginScreen = ({navigation}) => {
@@ -44,12 +49,14 @@ const LoginScreen = ({navigation}) => {
     buttonTitle = "Sign In"
     //onPress={() => login(email, password)}
     />
-    <TouchableOpacity style={styles.forgotButton} onPress={() => {}}>
-        <Text style={styles.navButtonText}>Forgot Password?</Text>
-    </TouchableOpacity>
+    <FormalButton 
+    message = "Forgot your login details?"
+    buttonTitle = "Get help signing in."
+    />
     <View>
+      <View style = {styles.socialButton}>
           <SocialButton
-            buttonTitle="Sign In with Facebook"
+            buttonTitle="Facebook"
             btnType="facebook"
             color="#4867aa"
             backgroundColor="#e6eaf4"
@@ -57,21 +64,21 @@ const LoginScreen = ({navigation}) => {
           />
 
           <SocialButton
-            buttonTitle="Sign In with Google"
+            buttonTitle="Google"
             btnType="google"
             color="#de4d41"
             backgroundColor="#f5e7ea"
             //onPress={() => googleLogin()}
           />
+    </View>
           </View>
-          <TouchableOpacity
-          style = {styles.forgotButton}
-          onPress = {()=>(navigation.navigate('Signup'))}
-          >
-          <Text style = {styles.navButtonText}>
-          Don't have an acount? Create here
-          </Text>
-          </TouchableOpacity>
+          <View style = {styles.signup}>
+          <FormalButton 
+          message = "Don't have an account?"
+          buttonTitle = "Sign up."
+          onPress = {()=>navigation.navigate('Signup')}
+          />
+          </View>
         
 
     </View>
@@ -84,8 +91,7 @@ export default LoginScreen;
 
 const styles = StyleSheet.create({
   container: {
-    //backgroundColor: '#f9fafd',
-    backgroundColor : 'grey',
+    backgroundColor : Colors.gainsboro,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -95,6 +101,7 @@ const styles = StyleSheet.create({
     height: 150,
     width: 150,
     resizeMode: 'cover',
+    marginTop:65
   },
   text: {
     ...Platform.select({
@@ -118,11 +125,18 @@ const styles = StyleSheet.create({
   forgotButton: {
     marginVertical: 35,
   },
+  socialButton: {
+    flexDirection : 'row',
+  },
   navButtonText: {
     fontSize: 18,
     fontWeight: '500',
     color: '#2e64e5',
     fontFamily: 'Lato-Regular',
   },
+  signup : {
+    flex:1,
+    justifyContent : 'flex-end',
+  }
 })
 
