@@ -41,7 +41,7 @@ const Skip = ({...props}) => (
 const Next = ({...props}) => (
     <TouchableOpacity
         style={{marginHorizontal:10}}
-        {...props}
+       {...props}
     >
         <Text style={{fontSize:16, color:'white'}}>Next</Text>
     </TouchableOpacity>

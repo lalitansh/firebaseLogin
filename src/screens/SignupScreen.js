@@ -1,11 +1,14 @@
 import React, {useContext, useState} from 'react';
-import {View, Text, TouchableOpacity, Platform, StyleSheet} from 'react-native';
-import InputForm from '../components/InputForm';
+import {View, Text, TouchableOpacity, Platform, StyleSheet,Dimensions} from 'react-native';
+import {Hideo} from 'react-native-textinput-effects';
 import FormButton from '../components/FormButton';
 import SocialButton from '../components/SocialButton';
 import FormalButton from '../components/FormalButton';
 import Colors from '../utils/Colors'
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 //import {AuthContext} from '../navigation/AuthProvider';
+const HEIGHT = Dimensions.get('window').height;
+const WIDTH = Dimensions.get('window').width;
 
 const SignupScreen = ({navigation}) => {
   const [email, setEmail] = useState();
@@ -18,31 +21,52 @@ const SignupScreen = ({navigation}) => {
     <View style={styles.container}>
       <Text style={styles.text}>Create an account</Text>
 
-      <InputForm
-        labelValue={email}
-        onChangeText={(userEmail) => setEmail(userEmail)}
-        placeholderText="Email"
-        iconType="user"
-        keyboardType="email-address"
-        autoCapitalize="none"
-        autoCorrect={false}
-      />
-
-      <InputForm
-        labelValue={password}
-        onChangeText={(userPassword) => setPassword(userPassword)}
-        placeholderText="Password"
-        iconType="lock"
-        secureTextEntry={true}
-      />
-
-      <InputForm
-        labelValue={confirmPassword}
-        onChangeText={(userPassword) => setPassword(userPassword)}
-        placeholderText="Confirm Password"
-        iconType="lock"
-        secureTextEntry={true}
-      />
+    <View style = {styles.inputContainer}>
+    <Hideo
+    style = {styles.input}
+    iconClass={FontAwesomeIcon}
+    iconName={'user'}
+    iconColor={'white'}
+    onChangeText = {(userEmail) => setEmail(userEmail)}
+    iconBackgroundColor={'black'}
+    inputStyle={{ color: '#464949' }}
+    Keyboard-Type = "email-address"
+    autoCapitalize="none"
+    autoCorrect={false}
+    value = {email}
+    placeholder = "email"
+  />
+  <Hideo
+    style = {styles.input}
+    iconClass={FontAwesomeIcon}
+    iconName={'lock'}
+    iconColor={'white'}
+    onChangeText = {(password) => setPassword(password)}
+    iconBackgroundColor={'black'}
+    inputStyle={{ color: '#464949' }}
+    Keyboard-Type = "email-address"
+    autoCapitalize="none"
+    autoCorrect={false}
+    defaultValue = {password}
+    placeholder = "password"
+    secureTextEntry = {true}
+  />
+  <Hideo
+  style = {styles.input}
+    iconClass={FontAwesomeIcon}
+    iconName={'lock'}
+    iconColor={'white'}
+    onChangeText = {(password) => setConfirmPassword(password)}
+    iconBackgroundColor={'black'}
+    inputStyle={{ color: '#464949' }}
+    Keyboard-Type = "email-address"
+    autoCapitalize="none"
+    autoCorrect={false}
+    defaultValue = {confirmPassword}
+    placeholder = "confirm Password"
+    secureTextEntry = {true}
+  />
+  </View>
 
       <FormButton
         buttonTitle="Sign Up"
@@ -83,7 +107,6 @@ const SignupScreen = ({navigation}) => {
           />
       </View>
     
-
     <FormalButton 
     message = "Already Have an account?"
     buttonTitle = "Sign in."
@@ -134,4 +157,24 @@ const styles = StyleSheet.create({
   socialButton: {
     flexDirection : 'row',
   },
+  input : {
+    //padding:10,
+    flex:1,
+    fontSize : 12,
+    fontFamily : 'Lato-Regular',
+    color : '#333',
+    justifyContent : 'center',
+    alignItems : 'center',
+    width: '100%',
+  },
+  inputContainer : {
+    marginTop : 5,
+    marginBottom : 10,
+    width : '100%',
+    height : HEIGHT/4.5,
+    borderColor : '#ccc',
+    alignItems : 'center',
+    //backgroundColor : '#fff'
+  },
+
 });
