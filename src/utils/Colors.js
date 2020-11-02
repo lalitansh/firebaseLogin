@@ -13,14 +13,19 @@ const colors = {
 
   flame: '#E55812',
   musturd: '#FFC857',
+  offWhite : '#f9fafd',
+  fbLocal : "#4867aa",
+  googleLocal : "#de4d41",
 
   //text
   darkgunmetal: '#21303D',
   panegrey: '#5C6D7C',
   slategrey: '#6F8496',
   ashgrey: '#AEB4BA',
-
+  catskillWhite : "#e6eaf4",
+  dawnPink : '#F5E7EA',
   darkSkyBlue: '#76BED0',
+  gulfBlue : '#051d5f',
   //screen
   maastrichtBlue: '#001F2D',
   eucalyptus: '#40C9A2',

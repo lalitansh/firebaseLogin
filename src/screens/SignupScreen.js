@@ -4,7 +4,8 @@ import {Hideo} from 'react-native-textinput-effects';
 import FormButton from '../components/FormButton';
 import SocialButton from '../components/SocialButton';
 import FormalButton from '../components/FormalButton';
-import Colors from '../utils/Colors'
+import Colors from '../utils/Colors';
+import Constants from '../utils/Constants';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 //import {AuthContext} from '../navigation/AuthProvider';
 const HEIGHT = Dimensions.get('window').height;
@@ -25,45 +26,45 @@ const SignupScreen = ({navigation}) => {
     <Hideo
     style = {styles.input}
     iconClass={FontAwesomeIcon}
-    iconName={'user'}
-    iconColor={'white'}
+    iconName={Constants.Icon.user}
+    iconColor={Colors.white}
     onChangeText = {(userEmail) => setEmail(userEmail)}
-    iconBackgroundColor={'black'}
-    inputStyle={{ color: '#464949' }}
-    Keyboard-Type = "email-address"
-    autoCapitalize="none"
+    iconBackgroundColor={Colors.black}
+    inputStyle={{ color: Colors.black }}
+    Keyboard-Type = {Constants.KeyboardType.email_address}
+    autoCapitalize={Constants.none}
     autoCorrect={false}
-    value = {email}
-    placeholder = "email"
+    label = {Constants.email}
+    placeholder = {Constants.email}
   />
   <Hideo
-    style = {styles.input}
+  style = {styles.input}
     iconClass={FontAwesomeIcon}
-    iconName={'lock'}
-    iconColor={'white'}
+    iconName={Constants.Icon.lock}
+    iconColor={Colors.white}
     onChangeText = {(password) => setPassword(password)}
-    iconBackgroundColor={'black'}
-    inputStyle={{ color: '#464949' }}
-    Keyboard-Type = "email-address"
-    autoCapitalize="none"
+    iconBackgroundColor={Colors.black}
+    inputStyle={{ color: Colors.black }}
+    Keyboard-Type = {Constants.KeyboardType.email_address}
+    autoCapitalize={Constants.none}
     autoCorrect={false}
-    defaultValue = {password}
-    placeholder = "password"
+    label = {Constants.password}
+    placeholder = {Constants.password}
     secureTextEntry = {true}
   />
   <Hideo
   style = {styles.input}
     iconClass={FontAwesomeIcon}
-    iconName={'lock'}
-    iconColor={'white'}
+    iconName={Constants.Icon.lock}
+    iconColor={Colors.white}
     onChangeText = {(password) => setConfirmPassword(password)}
-    iconBackgroundColor={'black'}
-    inputStyle={{ color: '#464949' }}
-    Keyboard-Type = "email-address"
-    autoCapitalize="none"
+    iconBackgroundColor={Colors.black}
+    inputStyle={{ color: Colors.black }}
+    Keyboard-Type = {Constants.KeyboardType.email_address}
+    autoCapitalize={Constants.none}
     autoCorrect={false}
-    defaultValue = {confirmPassword}
-    placeholder = "confirm Password"
+    label = {Constants.password}
+    placeholder = {Constants.password}
     secureTextEntry = {true}
   />
   </View>
@@ -91,26 +92,26 @@ const SignupScreen = ({navigation}) => {
      
       <View style = {styles.socialButton}>
           <SocialButton
-            buttonTitle="Facebook"
-            btnType="facebook"
-            color="#4867aa"
+            buttonTitle={Constants.FaceBook}
+            btnType={Constants.Icon.facebook}
+            color={Colors.fbLocal}
             backgroundColor="#e6eaf4"
             //onPress={() => fbLogin()}
           />
 
           <SocialButton
-            buttonTitle="Google"
-            btnType="google"
-            color="#de4d41"
+            buttonTitle={Constants.Google}
+            btnType={Constants.Icon.google}
+            color={Colors.googleLocal}
             backgroundColor="#f5e7ea"
             //onPress={() => googleLogin()}
           />
       </View>
     
     <FormalButton 
-    message = "Already Have an account?"
-    buttonTitle = "Sign in."
-    onPress = {()=>navigation.navigate('Login')}
+    message = {Constants.alreadyHaveAccount}
+    buttonTitle = {Constants.signIn}
+    onPress = {()=>navigation.navigate(Constants.navigationRoutes.Login)}
     />
     </View>
   );
@@ -131,7 +132,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Kufam-SemiBoldItalic',
     fontSize: 28,
     marginBottom: 10,
-    color: '#051d5f',
+    color: Colors.gulfBlue,
   },
   navButton: {
     marginTop: 15,

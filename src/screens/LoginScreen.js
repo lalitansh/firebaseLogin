@@ -14,6 +14,7 @@ import SocialButton from '../components/SocialButton';
 import FormButton from '../components/FormButton';
 import FormalButton from '../components/FormalButton';
 import Colors from '../utils/Colors'
+import Constants from '../utils/Constants'
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 import { Hideo } from 'react-native-textinput-effects';
@@ -24,7 +25,7 @@ const Done = ({...props}) => (
       style={{marginHorizontal:10}}
       {...props}
   >
-      <Text style={{fontSize:16, color:'white'}}>Done</Text>
+      <Text style={{fontSize:16, color:Colors.white}}>Done</Text>
   </TouchableOpacity>
 );
 
@@ -37,35 +38,35 @@ const LoginScreen = ({navigation}) => {
     source={require('../../assets/Images/reactIcon.png')}
     style = {styles.logo}
     />
-    <Text style = {styles.text}>SocialAppLS</Text>
+    <Text style = {styles.text}>{Constants.appName}</Text>
     <View style = {styles.inputContainer}>
     <Hideo
     style = {styles.input}
     iconClass={FontAwesomeIcon}
-    iconName={'user'}
-    iconColor={'white'}
+    iconName={Constants.Icon.user}
+    iconColor={Colors.white}
     onChangeText = {(userEmail) => setEmail(userEmail)}
-    iconBackgroundColor={'black'}
-    inputStyle={{ color: '#464949' }}
-    Keyboard-Type = "email-address"
-    autoCapitalize="none"
+    iconBackgroundColor={Colors.black}
+    inputStyle={{ color: Colors.black }}
+    Keyboard-Type = {Constants.KeyboardType.email_address}
+    autoCapitalize={Constants.none}
     autoCorrect={false}
-    label = 'email'
-    placeholder = "email"
+    label = {Constants.email}
+    placeholder = {Constants.email}
   />
   <Hideo
   style = {styles.input}
     iconClass={FontAwesomeIcon}
-    iconName={'lock'}
-    iconColor={'white'}
-    onChangeText = {(password) => setEmail(password)}
-    iconBackgroundColor={'black'}
-    inputStyle={{ color: '#464949' }}
-    Keyboard-Type = "email-address"
-    autoCapitalize="none"
+    iconName={Constants.Icon.lock}
+    iconColor={Colors.white}
+    onChangeText = {(password) => setPassword(password)}
+    iconBackgroundColor={Colors.black}
+    inputStyle={{ color: Colors.black }}
+    Keyboard-Type = {Constants.KeyboardType.email_address}
+    autoCapitalize={Constants.none}
     autoCorrect={false}
-    label = 'password'
-    placeholder = "password"
+    label = {Constants.password}
+    placeholder = {Constants.password}
     secureTextEntry = {true}
   />
   </View>
@@ -74,33 +75,33 @@ const LoginScreen = ({navigation}) => {
     //onPress={() => login(email, password)}
     />
     <FormalButton 
-    message = "Forgot your login details?"
-    buttonTitle = "Get help signing in."
+    message = {Constants.forgotDetails}
+    buttonTitle = {Constants.getHelpSigning}
     />
     <View>
       <View style = {styles.socialButton}>
           <SocialButton
-            buttonTitle="Facebook"
-            btnType="facebook"
-            color="#4867aa"
-            backgroundColor="#e6eaf4"
+            buttonTitle={Constants.FaceBook}
+            btnType={Constants.Icon.facebook}
+            color={Colors.fbLocal}
+            backgroundColor={Colors.catskillWhite}
             //onPress={() => fbLogin()}
           />
 
           <SocialButton
-            buttonTitle="Google"
-            btnType="google"
-            color="#de4d41"
-            backgroundColor="#f5e7ea"
+            buttonTitle={Constants.Google}
+            btnType={Constants.Icon.google}
+            color={Colors.googleLocal}
+            backgroundColor={Colors.dawnPink}
             //onPress={() => googleLogin()}
           />
     </View>
           </View>
           <View style = {styles.signup}>
           <FormalButton 
-          message = "Don't have an account?"
-          buttonTitle = "Sign up."
-          onPress = {()=>navigation.navigate('Signup')}
+          message = {Constants.donthaveAccountMessage}
+          buttonTitle = {Constants.signUp}
+          onPress = {()=>navigation.navigate(Constants.navigationRoutes.Signup)}
           />
           </View>
         
@@ -133,13 +134,13 @@ const styles = StyleSheet.create({
         fontFamily: 'Kufam-SemiBoldItalic',
         fontSize: 28,
         marginBottom: 10,
-        color: '#051d5f',
+        color: Colors.gulfBlue,
       },
       ios:{
         fontFamily: 'Kufam-SemiBoldItalic',
         fontSize: 28,
         marginBottom: 10,
-        color: '#051d5f',
+        color: Colors.gulfBlue,
       }
     })
   },
@@ -178,7 +179,6 @@ const styles = StyleSheet.create({
     width : '100%',
     height : HEIGHT/6.5,
     borderColor : '#ccc',
-   
     alignItems : 'center',
     //backgroundColor : '#fff'
   },

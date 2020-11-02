@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "420245857234",
+    "firebase_url": "https://socialappls.firebaseio.com",
+    "project_id": "socialappls",
+    "storage_bucket": "socialappls.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:420245857234:android:a27c8791f4908c858f5e0b",
+        "android_client_info": {
+          "package_name": "com.firebaaseloginapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "420245857234-bj0hl469sa8d3eud6eu7qu0khhn43tt8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.firebaaseloginapp",
+            "certificate_hash": "821363015e49052132dde7e785418bea1d027897"
+          }
+        },
+        {
+          "client_id": "420245857234-1eht9eu3l1nv36oc0anutl2b88n1f3qs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGHKpitvE-yi3puVv3lhB88X2vvYfmS1g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "420245857234-1eht9eu3l1nv36oc0anutl2b88n1f3qs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
