@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {useContext,useState} from 'react';
 import {
   View,
@@ -7,33 +7,90 @@ import {
   Image,
   Platform,
   StyleSheet,
-  Dimensions
+  Dimensions,
+  KeyboardAvoidingView,
+  ScrollView
 } from 'react-native'
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
 import SocialButton from '../components/SocialButton';
 import FormButton from '../components/FormButton';
 import FormalButton from '../components/FormalButton';
-import Colors from '../utils/Colors'
+import auth from '@react-native-firebase/auth';
+import Colors from '../utils/Colors';
 import Constants from '../utils/Constants'
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 import { Hideo } from 'react-native-textinput-effects';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 //const {login, googleLogin, fbLogin} = useContext(AuthContext);
 
-const Done = ({...props}) => (
-  <TouchableOpacity
-      style={{marginHorizontal:10}}
-      {...props}
-  >
-      <Text style={{fontSize:16, color:Colors.white}}>Done</Text>
-  </TouchableOpacity>
-);
 
 const LoginScreen = ({navigation}) => {
   const [email,setEmail] = useState();
   const [password,setPassword] = useState();
+  const [showPassword,setShowPassword] = useState('eye')
+  const [showPass,setShowPass] = useState(false)
+ 
+
+  useEffect(()=>{
+   
+  },[])
+
+ 
+  const Login = async (email, password) => {
+    try {
+      await auth().signInWithEmailAndPassword(email, password).then((value, error)=>{
+        if (value != null) {
+          console.log('Login value', value)
+        }else{
+          console.log('error is ',error)
+        }
+      })
+      console.log('email is = > ', email)
+      console.log('password is = > ', password)
+    } catch(error) {   
+      switch(error.code) {
+        case 'auth/wrong-password':
+        alert('password is incorrect !!')
+        break;
+        case 'auth/user-not-found':
+        alert('invailid user or Email not registered !')
+        break;
+     }
+   }
+  }
+
+  const validate = (text) => {
+    console.log(text);
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (reg.test(text) === false) {
+      console.log("Email is Not Correct");
+      alert("You have entered an invalid email address!")
+      return false;
+    }
+    else {
+      console.log("Email is Correct");
+      Login(email,password)
+    }
+  }
+
+  const changeIcon=()=>{
+    if (showPassword === 'eye'){
+      setShowPassword('eye-slash')
+      setShowPass(true)
+    }else{
+      setShowPassword('eye')
+      setShowPass(false)
+    }
+  }
   return(
+   
+    <KeyboardAwareScrollView 
+    contentContainerStyle={styles.scrollContainer}
+    >
+      
     <View style = {styles.container}>
+     
     <Image
     source={require('../../assets/Images/reactIcon.png')}
     style = {styles.logo}
@@ -53,11 +110,15 @@ const LoginScreen = ({navigation}) => {
     autoCorrect={false}
     label = {Constants.email}
     placeholder = {Constants.email}
+    height = {45}
+    fontSize = {14}
   />
+  <View style = {{flexDirection:'row'}}>
   <Hideo
-  style = {styles.input}
+    style = {styles.input}
     iconClass={FontAwesomeIcon}
     iconName={Constants.Icon.lock}
+    //iconName={'eye'}
     iconColor={Colors.white}
     onChangeText = {(password) => setPassword(password)}
     iconBackgroundColor={Colors.black}
@@ -67,12 +128,18 @@ const LoginScreen = ({navigation}) => {
     autoCorrect={false}
     label = {Constants.password}
     placeholder = {Constants.password}
-    secureTextEntry = {true}
+    secureTextEntry = {showPass ? false : true}
+    height = {45}
+    fontSize = {14}
   />
+    <View style = {styles.iconWrapper}>
+    <FontAwesomeIcon onPress={()=>changeIcon()} style = {styles.icon} name = {showPassword} size = {18} color = 'black'/>
+    </View>
+    </View>
   </View>
     <FormButton 
     buttonTitle = "Sign In"
-    //onPress={() => login(email, password)}
+    onPress={() => validate(email)}
     />
     <FormalButton 
     message = {Constants.forgotDetails}
@@ -104,9 +171,11 @@ const LoginScreen = ({navigation}) => {
           onPress = {()=>navigation.navigate(Constants.navigationRoutes.Signup)}
           />
           </View>
-        
-
+         
+         
     </View>
+     </KeyboardAwareScrollView>
+   
   )
 
 
@@ -126,7 +195,7 @@ const styles = StyleSheet.create({
     height: 150,
     width: 150,
     resizeMode: 'cover',
-    marginTop:65
+    marginTop:0
   },
   text: {
     ...Platform.select({
@@ -143,6 +212,16 @@ const styles = StyleSheet.create({
         color: Colors.gulfBlue,
       }
     })
+  },
+  scrollContainer: {
+    backgroundColor: "yellow",
+    flexGrow:1 //added flexGrow
+  },
+  iconWrapper: {
+    width: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor:'white',
   },
   navButton: {
     marginTop: 15,

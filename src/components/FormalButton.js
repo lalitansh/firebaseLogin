@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
     //fontWeight: 'bold',
     color: Colors.grey700,
     fontFamily: 'Lato-Regular',
+    marginBottom : 5
     
   },
   buttonText : {
