@@ -6,51 +6,41 @@ import SocialButton from '../components/SocialButton';
 import FormalButton from '../components/FormalButton';
 import auth from '@react-native-firebase/auth';
 import Colors from '../utils/Colors';
-import Constants from '../utils/Constants';
+import Constants,{validation} from '../utils/Constants';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-//import {AuthContext} from '../navigation/AuthProvider'
+import {AuthContext} from '../navigation/AuthProvider'
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 
 const SignupScreen = ({navigation}) => {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [confirmPassword, setConfirmPassword] = useState();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const {register} = useContext(AuthContext);
 
-  const register = async (email, password) => {
-    try {
-      await auth().createUserWithEmailAndPassword(email, password).then((value, error)=>{
-        if (value != null) {
-          console.log('sign up value', value)
-        }else{
-          console.log('error is ',error)
-        }
-      })
-      console.log('email is = > ', email)
-      console.log('password is = > ', password)
-    } catch (e) {
-      console.log("error",e);
-    }
-  }
-
-  const validate = (text) => {
-    console.log(text);
+  const validate = (email,password) => {
+    console.log(email);
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if (reg.test(text) === false) {
+    if (reg.test(email) === false) {
       console.log("Email is Not Correct");
-      alert("You have entered an invalid email address!")
+      alert(validation.invalidEmailMessage)
       return false;
+    }else if(password === ""){
+      alert(validation.enterPassword)
     }else if(password.length <= 5){
-      alert("Password should be atleast 6 characters long!")
+      alert(validation.shortRangeError)
+    }else if(confirmPassword === ""){
+      alert(validation.enterConfirmPassword)
     }else if(password !== confirmPassword){
-      alert("Password and confirm Password should be same!")
+      alert(validation.passwordNotMatch)
     }else {
+      console.log('email and password', email,password);
       register(email,password)
     }
   }
 
-  //const {register} = useContext(AuthContext);
+  
 
   return (
     
@@ -115,7 +105,7 @@ const SignupScreen = ({navigation}) => {
 
       <FormButton
         buttonTitle="Sign Up"
-        onPress={() => validate(email)}
+        onPress={() => validate(email,password)}
       />
 
       <View style={styles.textPrivate}>

@@ -7,7 +7,8 @@ StyleSheet,
 Dimensions } from 'react-native';
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
-import Colors from '../utils/Colors'
+import Colors from '../utils/Colors';
+import SplashScreen from 'react-native-splash-screen';
 
 
 import Onboarding from 'react-native-onboarding-swiper';
@@ -57,6 +58,7 @@ const Done = ({...props}) => (
 );
 
 const OnboardingScreen = ({navigation}) => {
+   
     return (
         <Onboarding
         SkipButtonComponent={Skip}

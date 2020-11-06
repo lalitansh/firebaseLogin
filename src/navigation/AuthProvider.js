@@ -1,5 +1,6 @@
 import React, {createContext, useState} from 'react';
 import auth from '@react-native-firebase/auth';
+import {validation} from '../utils/Constants'
 //import { GoogleSignin } from '@react-native-community/google-signin';
 //import { LoginManager, AccessToken } from 'react-native-fbsdk';
 
@@ -18,6 +19,17 @@ export const AuthProvider = ({children}) => {
             await auth().signInWithEmailAndPassword(email, password);
           } catch (e) {
             console.log(e);
+            switch(e.code) {
+              case validation.invalidEmail:
+              alert(validation.invalidEmailMessage)
+              break;
+              case validation.wrongPassword:
+              alert(validation.wrongPasswordMessage)
+              break;
+              case validation.userNotFound:
+              alert(validation.userNotFoundMessage)
+              break;
+           }
           }
         },
         // googleLogin: async () => {

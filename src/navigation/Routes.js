@@ -1,87 +1,34 @@
-import React, { useEffect, useState } from 'react';
-import {
-View
-} from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import {createStackNavigator} from '@react-navigation/stack';
-import SignupScreen from '../screens/SignupScreen';
-import LoginScreen from '../screens/LoginScreen';
-import Onboarding from '../screens/Onboarding'
-import AsyncStorage from '@react-native-community/async-storage';
+import React, {useContext, useState, useEffect} from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import auth from '@react-native-firebase/auth';
+import {AuthContext} from './AuthProvider';
+import SplashScreen from 'react-native-splash-screen'
 
-const Stack = createStackNavigator();
+import AuthStack from './AuthStack';
+import AppStack from './AppStack';
 
-const AuthStack = () => {
-  const [isFirstLaunch, setIsFirstLaunch] = useState(null);
-  let routeName;
+const Routes = () => {
+  const {user, setUser} = useContext(AuthContext);
+  const [initializing, setInitializing] = useState(true);
 
-  useEffect(()=>{
-    AsyncStorage.getItem('alreadyLaunched').then((value)=>{
-      if(value == null) {
-        AsyncStorage.setItem('alreadyLaunched', 'true');
-        setIsFirstLaunch(true)
-      }else{
-        setIsFirstLaunch(false)
-      }
-    })
-  },[])
+  const onAuthStateChanged = (user) => {
+    setUser(user);
+    if (initializing) setInitializing(false);
+  };
 
-  if (isFirstLaunch === null){
-    return null;
-  }else if(isFirstLaunch === true){
-    routeName = 'Onboarding';
-  }else{
-    routeName = 'Login';
-  }
+  useEffect(() => {
+    SplashScreen.hide()
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
 
-  return(
-<Stack.Navigator initialRouteName = {routeName}
-headerMode = 'screen'>
-<Stack.Screen 
-name = "Onboarding"
-component = {Onboarding}
-options={({navigation}) => ({
-headerShown : false 
-})}
-/>
-<Stack.Screen name = "Login"
-component = {LoginScreen}
-options={({navigation}) => ({
-  title: 'Login',
-  headerStyle: {
-    backgroundColor: '#f9fafd',
-    shadowColor: '#f9fafd',
-    elevation: 0,
-  },
-  headerLeft : ()=> {
-    
-  }
-  })}
-/>
-<Stack.Screen name = "Signup"
-component = {SignupScreen}
-options={({navigation}) => ({
-  title: 'Signup',
-  headerStyle: {
-    backgroundColor: '#fff',
-    shadowColor: '#f9fafd',
-    elevation: 0,
-  },
-  headerLeft: () => (
-    <View style={{marginLeft: 10}}>
-      <Ionicons 
-        name="arrow-back-sharp"
-        size={23}
-        backgroundColor="#fff"
-        color="#333"
-        onPress={() => navigation.navigate('Login')}
-      />
-    </View>
-  ),
-})}
-/>
-</Stack.Navigator>
-  )
-}
+  if (initializing) return null;
 
-export default AuthStack;
+  return (
+    <NavigationContainer>
+      {user ? <AppStack /> : <AuthStack />}
+    </NavigationContainer>
+  );
+};
+
+export default Routes;

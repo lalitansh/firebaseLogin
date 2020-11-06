@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import {useContext,useState} from 'react';
+import React, { useEffect,useContext,useState } from 'react';
 import {
   View,
   Text,
@@ -17,62 +16,47 @@ import FormButton from '../components/FormButton';
 import FormalButton from '../components/FormalButton';
 import auth from '@react-native-firebase/auth';
 import Colors from '../utils/Colors';
-import Constants from '../utils/Constants'
+import Constants,{validation} from '../utils/Constants'
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 import { Hideo } from 'react-native-textinput-effects';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-//const {login, googleLogin, fbLogin} = useContext(AuthContext);
+
+import {AuthContext} from '../navigation/AuthProvider'
+import SplashScreen from 'react-native-splash-screen';
 
 
 const LoginScreen = ({navigation}) => {
-  const [email,setEmail] = useState();
-  const [password,setPassword] = useState();
+  const [email,setEmail] = useState('');
+  const [password,setPassword] = useState('');
   const [showPassword,setShowPassword] = useState('eye')
   const [showPass,setShowPass] = useState(false)
- 
+  const {login} = useContext(AuthContext);
 
   useEffect(()=>{
-   
-  },[])
+    //SplashScreen.hide();
+    
+},[])
 
- 
-  const Login = async (email, password) => {
-    try {
-      await auth().signInWithEmailAndPassword(email, password).then((value, error)=>{
-        if (value != null) {
-          console.log('Login value', value)
-        }else{
-          console.log('error is ',error)
-        }
-      })
-      console.log('email is = > ', email)
-      console.log('password is = > ', password)
-    } catch(error) {   
-      switch(error.code) {
-        case 'auth/wrong-password':
-        alert('password is incorrect !!')
-        break;
-        case 'auth/user-not-found':
-        alert('invailid user or Email not registered !')
-        break;
-     }
-   }
-  }
-
-  const validate = (text) => {
-    console.log(text);
+  const validate = (email,password) => {
+     {
+    console.log(email);
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if (reg.test(text) === false) {
+    if (reg.test(email) === false) {
       console.log("Email is Not Correct");
-      alert("You have entered an invalid email address!")
+      alert(validation.invalidEmailMessage)
       return false;
+    }else if(password === ""){
+      alert(validation.enterPassword)
     }
     else {
-      console.log("Email is Correct");
-      Login(email,password)
+    console.log("Email is Correct");
+    
+     login(email,password)
     }
   }
+}
+
 
   const changeIcon=()=>{
     if (showPassword === 'eye'){
@@ -139,7 +123,7 @@ const LoginScreen = ({navigation}) => {
   </View>
     <FormButton 
     buttonTitle = "Sign In"
-    onPress={() => validate(email)}
+    onPress={() => validate(email,password)}
     />
     <FormalButton 
     message = {Constants.forgotDetails}
