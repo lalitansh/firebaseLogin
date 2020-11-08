@@ -29,7 +29,7 @@ import SplashScreen from 'react-native-splash-screen';
 const LoginScreen = ({navigation}) => {
   const [email,setEmail] = useState('');
   const [password,setPassword] = useState('');
-  const [showPassword,setShowPassword] = useState('eye')
+  const [showPassword,setShowPassword] = useState('eye-slash')
   const [showPass,setShowPass] = useState(false)
   const {login} = useContext(AuthContext);
 
@@ -59,11 +59,11 @@ const LoginScreen = ({navigation}) => {
 
 
   const changeIcon=()=>{
-    if (showPassword === 'eye'){
-      setShowPassword('eye-slash')
+    if (showPassword === 'eye-slash'){
+      setShowPassword('eye')
       setShowPass(true)
     }else{
-      setShowPassword('eye')
+      setShowPassword('eye-slash')
       setShowPass(false)
     }
   }
