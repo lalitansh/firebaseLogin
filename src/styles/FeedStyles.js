@@ -4,14 +4,16 @@ export const Container = styled.View`
   flex: 1;
   align-items: center;
   background-color: #fff;
-  padding: 20px;
+  
 `;
 
 export const Card = styled.View`
     background-color: #f8f8f8;
     width: 100%;
     margin-bottom: 20px;
-    border-radius: 10px;
+    border-color : grey;
+    border-top-width : 20px;
+   
 `;
 
 export const UserInfo = styled.View`
@@ -76,14 +78,14 @@ export const Interaction = styled.TouchableOpacity`
     justify-content: center;
     border-radius: 5px;
     padding: 2px 5px;
-    background-color: ${props => props.active ? '#2e64e515' : 'transparent'}
+    
 `;
 
 export const InteractionText = styled.Text`
     font-size: 12px;
     font-family: 'Lato-Regular';
     font-weight: bold;
-    color: ${props => props.active ? '#2e64e5' : '#333'};
+    color: ${props => props.active ? '#333' : '#2e64e5'};
     margin-top: 5px;
     margin-left: 5px;
 `;

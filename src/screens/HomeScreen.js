@@ -1,9 +1,12 @@
 import React from 'react';
-import {View, Text, StyleSheet, FlatList} from 'react-native';
-
+import {View, Text, StyleSheet, FlatList, Dimensions, Image, ScrollView} from 'react-native';
+import Carousel from 'react-native-snap-carousel';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
+const WIDTH = Dimensions.get('window').width;
 import PostCard from '../components/PostCard';
+import {
+  Card
+} from '../styles/FeedStyles'
 
 import {
   Container,
@@ -18,7 +21,7 @@ const Posts = [
     post: 'Hey there, this is my test for a post of my social app in React Native.',
     postImg: require('../../assets/Images/reactIcon.png'),
     liked: true,
-    likes: '14',
+    likes: 14,
     comments: '5'
   },
   {
@@ -29,7 +32,7 @@ const Posts = [
     post: 'Hey there, this is my test for a post of my social app in React Native.',
     postImg: 'none',
     liked: false,
-    likes: '8',
+    likes: 8,
     comments: '0'
   },
   {
@@ -40,7 +43,7 @@ const Posts = [
     post: 'Hey there, this is my test for a post of my social app in React Native.',
     postImg: require('../../assets/Images/reactIcon.png'),
     liked: true,
-    likes: '1',
+    likes: 1,
     comments: '0'
   },
   {
@@ -51,7 +54,7 @@ const Posts = [
     post: 'Hey there, this is my test for a post of my social app in React Native.',
     postImg: require('../../assets/Images/reactIcon.png'),
     liked: true,
-    likes: '22',
+    likes: 22,
     comments: '4'
   },
   {
@@ -62,21 +65,51 @@ const Posts = [
     post: 'Hey there, this is my test for a post of my social app in React Native.',
     postImg: 'none',
     liked: false,
-    likes: '0',
+    likes: 0,
     comments: '0'
   },
 ];
 
+
+
 const HomeScreen = () => {
   return (
+    <ScrollView>
     <Container>
+      <>
+      <View style = {{width :'100%', paddingBottom : 10}}>
+        <Text style  = {{fontSize :20, fontWeight:'600', paddingLeft : 10}}>Trending</Text>
+        </View>
+      </>
+      <View style = {{ flex: 1, borderBottomColor:'lightgrey', borderBottomWidth : 10, borderTopColor : 'lightgrey', borderTopWidth : 10, marginBottom:20, padding:10}}>
+      <Carousel 
+              ref={(c) => { this._carousel = c; }}
+              data={Posts}
+              renderItem={({item}) => <View style ={{backgroundColor:'black', borderRadius : 20}}><Image
+              style={{height : 170, width : 140, alignSelf : 'center'}}
+              source={item.userImg}
+            />
+            </View>}
+              sliderWidth={WIDTH}
+              sliderHeight={200}
+              itemWidth={150}
+              itemHeight={250}
+              //height ={200}
+             
+            
+              
+            />
+             </View>
+             <View style = {{width : '100%'}}>
       <FlatList 
         data={Posts}
         renderItem={({item}) => <PostCard item={item} />}
         keyExtractor={item=>item.id}
         showsVerticalScrollIndicator={false}
       />
+      </View>
     </Container>
+    </ScrollView>
   );
 };
 

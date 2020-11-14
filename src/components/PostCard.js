@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {
@@ -16,10 +16,38 @@ import {
   InteractionText,
   Divider,
 } from '../styles/FeedStyles';
+//import console = require('console');
+
+
+
+
 
 const PostCard = ({item}) => {
-  likeIcon = item.liked ? 'heart' : 'heart-outline';
-  likeIconColor = item.liked ? '#2e64e5' : '#333';
+  // likeIcon = item.liked ? 'heart' : 'heart-outline';
+  // likeIconColor = item.liked ? '#2e64e5' : '#333';
+
+  const [like,setLike] = useState(null)
+
+  const changeLikes= (item)=>{
+    console.log('calling changelikes')
+    if (item.liked) {
+    setLike(true)
+    }else{
+    setLike(false)
+    }
+    }
+
+  if(like){
+    likeIcon = 'heart'
+    likeIconColor = '#2e64e5'
+    item.liked = false
+    item.likes++
+  }else{
+    likeIcon = 'heart-outline'
+    likeIconColor = '#333'
+    item.liked = true
+    item.likes--
+  }
 
   if (item.likes == 1) {
     likeText = '1 Like';
@@ -37,6 +65,7 @@ const PostCard = ({item}) => {
     commentText = 'Comment';
   }
 
+  //changeLikes(item)
   return (
     <Card>
       <UserInfo>
@@ -51,8 +80,8 @@ const PostCard = ({item}) => {
 
       <InteractionWrapper>
         <Interaction active={item.liked}>
-          <Ionicons name={likeIcon} size={25} color={likeIconColor} />
-          <InteractionText active={item.liked}>{likeText}</InteractionText>
+          <Ionicons onPress = {()=> changeLikes(item)} name={likeIcon} size={25} color={likeIconColor} />
+          <InteractionText onPress = {()=> changeLikes(item)} active={item.liked}>{likeText}</InteractionText>
         </Interaction>
         <Interaction>
           <Ionicons name="md-chatbubble-outline" size={25} />

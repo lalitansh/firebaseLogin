@@ -2,14 +2,13 @@ import React, { useEffect,useContext,useState } from 'react';
 import {
   View,
   Text,
-  TouchableOpacity,
   Image,
   Platform,
   StyleSheet,
   Dimensions,
-  KeyboardAvoidingView,
-  ScrollView
-} from 'react-native'
+  Modal,
+  ActivityIndicator
+} from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
 import SocialButton from '../components/SocialButton';
 import FormButton from '../components/FormButton';
@@ -21,7 +20,7 @@ const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 import { Hideo } from 'react-native-textinput-effects';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-
+import Loader from '../components/Loader'
 import {AuthContext} from '../navigation/AuthProvider'
 import SplashScreen from 'react-native-splash-screen';
 
@@ -31,12 +30,13 @@ const LoginScreen = ({navigation}) => {
   const [password,setPassword] = useState('');
   const [showPassword,setShowPassword] = useState('eye-slash')
   const [showPass,setShowPass] = useState(false)
+  const [loading, setLoading] = useState(false)
   const {login} = useContext(AuthContext);
+  const [user,setUser] = useState(false)
 
   useEffect(()=>{
     //SplashScreen.hide();
-    
-},[])
+  },[])
 
   const validate = (email,password) => {
      {
@@ -51,7 +51,8 @@ const LoginScreen = ({navigation}) => {
     }
     else {
     console.log("Email is Correct");
-    
+     setLoading(true)
+     setUser(true)
      login(email,password)
     }
   }
@@ -73,7 +74,9 @@ const LoginScreen = ({navigation}) => {
     contentContainerStyle={styles.scrollContainer}
     >
       
-    <View style = {styles.container}>
+    <View pointerEvents={user ? "none" : "auto"} style = {styles.container}>
+
+    {/* <Loader loading = {loading} /> */}
      
     <Image
     source={require('../../assets/Images/reactIcon.png')}
@@ -121,10 +124,20 @@ const LoginScreen = ({navigation}) => {
     </View>
     </View>
   </View>
-    <FormButton 
+
+
+    {user ? <FormButton 
+    buttonTitle = "Sign In"
+    isLogin = {true}
+    onPress={() => validate(email,password)}
+    /> : <FormButton 
     buttonTitle = "Sign In"
     onPress={() => validate(email,password)}
-    />
+    /> }
+    
+
+
+
     <FormalButton 
     message = {Constants.forgotDetails}
     buttonTitle = {Constants.getHelpSigning}
@@ -245,5 +258,6 @@ const styles = StyleSheet.create({
     alignItems : 'center',
     //backgroundColor : '#fff'
   },
+  
 })
 
