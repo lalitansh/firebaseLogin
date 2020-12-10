@@ -18,10 +18,12 @@ import {
 import Login from './src/screens/LoginScreen'
 import AppNavigator from './src/navigation'
 import Onboarding from './src/screens/Onboarding'
+import { navigationRef } from './src/screens/RootNavigation';
+
 
 const App=()=>{
 return(
-  <AppNavigator/>
+  <AppNavigator />
 )
 }
 

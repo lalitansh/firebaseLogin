@@ -9,7 +9,6 @@ import LoginScreen from '../screens/LoginScreen';
 import Onboarding from '../screens/Onboarding'
 import AsyncStorage from '@react-native-community/async-storage';
 import SplashScreen from 'react-native-splash-screen';
-import { NavigationContainer } from '@react-navigation/native';
 
 
 

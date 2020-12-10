@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, TouchableOpacity, Text} from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createBottomTabNavigator,useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -10,17 +10,22 @@ import HomeScreen from '../screens/HomeScreen';
 import ChatScreen from '../screens/ChatScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import AddPostScreen from '../screens/AddPostScreen';
+import Comments from '../screens/Comments';
+import Others from '../screens/Others'
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
+
 const FeedStack = ({navigation}) => (
   <Stack.Navigator>
     <Stack.Screen
-      name="LS Social"
+      name="HomeScreen"
       component={HomeScreen}
+      
       options={{
         headerTitleAlign: 'center',
+        title : 'LS Social',
         headerTitleStyle: {
           color: '#2e64e5',
           fontFamily: 'Kufam-SemiBoldItalic',
@@ -38,6 +43,34 @@ const FeedStack = ({navigation}) => (
               backgroundColor="#fff"
               color="#2e64e5"
               onPress={() => navigation.navigate('AddPost')}
+            />
+          </View>
+        ),
+      }}
+    />
+    <Stack.Screen
+      name="Comments"
+      component={Comments}
+      options={{
+        
+        headerTitleAlign: 'center',
+        headerTitleStyle: {
+          color: '#2e64e5',
+          fontFamily: 'Kufam-SemiBoldItalic',
+          fontSize:18
+        },
+        headerStyle: {
+          shadowColor: '#fff',
+          elevation: 0,
+        },
+        headerLeft: () => (
+          <View style={{marginRight: 10}}>
+            <Ionicons.Button
+              name="arrow-back"
+              size={22}
+              backgroundColor="#fff"
+              color="#2e64e5"
+              onPress={() => navigation.navigate('HomeScreen')}
             />
           </View>
         ),
@@ -107,6 +140,17 @@ const AppStack = () => {
         }}
       />
       <Tab.Screen
+        name="Other"
+        component={Others}
+        
+        options={{
+          // tabBarLabel: 'Home',
+          tabBarIcon: ({color, size}) => (
+            <Ionicons name="person-outline" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
         name="Profile"
         component={ProfileScreen}
         options={{
@@ -116,6 +160,7 @@ const AppStack = () => {
           ),
         }}
       />
+      
     </Tab.Navigator>
   );
 }
